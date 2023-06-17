@@ -1,7 +1,13 @@
+//GAME RULES
+//Scissors > Paper > Rock
+//Paper > Rock > Scissors
+//Rock > Scissors > Paper
+
 
 let playerScore = 0;
 let computerScore = 0;
 
+game();
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 + 1);
@@ -13,10 +19,6 @@ function getComputerChoice() {
         return 'scissors'
 }
 
-//Scissors > Paper > Rock
-//Paper > Rock > Scissors
-//Rock > Scissors > Paper
-
 function gameRound(playerSelection, computerSelection) {
     let player = playerSelection.toLowerCase();
     if (player === computerSelection){
@@ -25,38 +27,27 @@ function gameRound(playerSelection, computerSelection) {
         return('Tie!');
     }
     else {
-        if (player === 'rock') {
-            if (computerSelection === 'paper'){
+        let result = roundResult(player, computerSelection);
+        if ((player === 'rock' && computerSelection === 'paper') ||
+            (player === 'scissors' && computerSelection === 'rock')||
+            (player === 'paper' && computerSelection === 'scissors')) {
                 computerScore +=1;
-                return('You Lose! Paper beats Rock.');
+                return ('You Lose! ' + result);
             }
-            else{
-                playerScore +=1;
-                return('You Win! Rock beats Scissors.');
-            }
+        else
+            playerScore +=1;
+            return ('You Win! ' + result);    
         }
-        else if (player === 'paper') {
-            if (computerSelection === 'rock'){
-                playerScore +=1;
-                return('You Win! Paper beats Rock.');
-            }
-            else{
-                computerScore +=1;
-                return('You Lose! Scissors beats Paper.');
-            }
-        }
-        else {
-            if (computerSelection === 'paper'){
-                playerScore +=1;
-                return('You Win! Scissors beats Paper.');
-            }
-            else{
-                computerScore +=1;
-                return('You Lose! Rock beats Scissors.');
-            }
-        }
-    }
 
+}
+
+function roundResult(inputOne, inputTwo){
+    if((inputOne === 'rock' && inputTwo === 'paper') || (inputOne === 'paper' && inputTwo === 'rock'))
+        return('Paper beats Rock.');
+    else if((inputOne === 'rock' && inputTwo === 'scissors') || (inputOne === 'scissors' && inputTwo === 'rock'))
+        return('Rock beats Scissors.');
+    else
+        return('Scissors beats Paper.');
 }
 
 function game(){
@@ -75,5 +66,3 @@ function game(){
     else
         console.log('TIE!');       
 }
-
-game();
