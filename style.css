@@ -37,7 +37,7 @@ h1{
 }
 
 h2{
-    font-size: max(2vmax, 20px);
+    font-size: max(2vmax, 30px);
     border-bottom: 2px solid #191a1b;
 }
 
@@ -79,3 +79,32 @@ h2{
     width: 80px;
 }
 
+.round{
+    margin-top: 30px;
+    font-size: 3rem;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F4845F;
+    border: 2px solid black;
+}
+
+.container{
+    width: 50vw;
+    height: 30vh;
+    border-radius: 5px;
+    background-color: #f19962;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#you,#pc{
+    background-color: #df4840;
+}
+
+#vs{
+    width: 100px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+}
