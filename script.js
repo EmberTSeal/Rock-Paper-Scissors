@@ -3,15 +3,21 @@
 //Paper > Rock > Scissors
 //Rock > Scissors > Paper
 
-
 let playerScore = 0;
 let computerScore = 0;
+let gameRoundCounter = 0;
 
+//menu
 const playerRock = document.querySelector('.rock');
 const playerPaper = document.querySelector('.paper');
 const playerScissors = document.querySelector('.scissors');
-
+      
 let playerSelection;
+let playerChoiceUI;
+let computerChoiceUI;
+const computerChoiceInsert = document.querySelector('#pc');
+const playerChoiceInsert = document.querySelector('#you');
+        
 
 playerRock.addEventListener('click', () => {
     playerSelection = 'rock';
@@ -25,7 +31,6 @@ playerScissors.addEventListener('click', () => {
     playerSelection = 'scissors';
     game();
 });
-
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3 + 1);
@@ -68,16 +73,36 @@ function roundResult(inputOne, inputTwo) {
         return ('Scissors beats Paper.');
 }
 
+function removePastRound(playerChoiceInsert, computerChoiceInsert){
+    playerChoiceInsert.removeChild(playerChoiceUI); 
+   computerChoiceInsert.removeChild(computerChoiceUI);    
+};
+
 function game() {
+        gameRoundCounter++;
+        if(gameRoundCounter>1)
+            removePastRound(playerChoiceInsert, computerChoiceInsert);
+       
         let computerSelection = getComputerChoice();
-        console.log(`Your input: ${playerSelection}`);
-        console.log(`Computer input: ${computerSelection}`);
+
+        playerChoiceUI = document.createElement('p');
+        playerChoiceUI.textContent = `${playerSelection}`;
+
+        computerChoiceUI = document.createElement('p');
+        computerChoiceUI.textContent = `${computerSelection}`;
+
+        playerChoiceInsert.append(playerChoiceUI);
+        computerChoiceInsert.append(computerChoiceUI);
+        
         console.log(gameRound(playerSelection, computerSelection));
         console.log(`Player Score: ${playerScore} , Computer Score: ${computerScore}`);
-    // if (playerScore > computerScore)
-    //     console.log('YOU WIN!')
-    // else if (playerScore < computerScore)
-    //     console.log('YOU LOSE!')
-    // else
-    //     console.log('TIE!');
+
+        if(gameRoundCounter === 5){
+            if (playerScore > computerScore)
+                console.log('YOU WIN!')
+            else if (playerScore < computerScore)
+                console.log('YOU LOSE!')
+            else
+                console.log('TIE!');
+        }        
 }
