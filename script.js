@@ -5,6 +5,7 @@ let gameRoundCounter = 0;
 const rock = document.querySelector('.rock');
 const paper = document.querySelector('.paper');
 const scissors = document.querySelector('.scissors');
+const restart = document.querySelector('#restart');
 
 //maps the choices w corresponding cards
 const choicesMap = {
@@ -35,6 +36,18 @@ paper.addEventListener('click', () => {
 scissors.addEventListener('click', () => {
     playerSelection = 'scissors';
     game(scissors);
+
+});
+
+restart.addEventListener( 'click', () => {
+    gameRoundCounter = 0;
+    playerScore = 0;
+    computerScore = 0;
+    removePastRound(playerChoiceInsert, computerChoiceInsert, resultInsert);
+    document.querySelector('.container').style.display = 'none';
+    document.querySelector('.round').style.display = 'none';
+    finalResultVisual.style.display = 'none';
+    restart.style.display = 'none';
 });
 
 function getComputerChoice() {
@@ -118,14 +131,15 @@ function game(playerSelectionNode) {
         resultVisual = document.createElement('p');
 
         resultVisual.textContent = gameRound(playerSelection, computerSelection) 
-        + `\r\n Player Score: ${playerScore} , Computer Score: ${computerScore}`;
+        + `Player Score: ${playerScore} , Computer Score: ${computerScore}`;
         
-        resultVisual.style.fontSize = '30px';
+        resultVisual.style.fontSize = '1.2rem';
+        resultVisual.style.fontWeight = '900';
         resultInsert.append(resultVisual);
         
         if(gameRoundCounter === 5){
             finalResultVisual = document.createElement('h2');
-            finalResultVisual.style.fontSize = '40px';
+            finalResultVisual.style.fontSize = '1.2rem';
             if (playerScore > computerScore){
                 finalResultVisual.textContent = 'YOU WIN!!!';
             }
@@ -135,9 +149,7 @@ function game(playerSelectionNode) {
             else{
                 finalResultVisual.textContent = 'TIE!!!';
             }
-            gameOver.append(finalResultVisual);
-            gameRoundCounter = 0;
-            playerScore = 0;
-            computerScore = 0;
+            gameOver.append(finalResultVisual);  
+            restart.style.display = 'block';
         }        
 }

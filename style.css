@@ -116,3 +116,7 @@ h2{
     display : none;
 }
 
+#restart{
+    margin-top: 30px;
+    display:none;
+}
