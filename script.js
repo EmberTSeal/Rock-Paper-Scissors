@@ -64,7 +64,7 @@ function gameRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         playerScore += 1;
         computerScore += 1;
-        return ('Tie!');
+        return ('Tie! ');
     }
     else {
         let result = roundResult(playerSelection, computerSelection);
@@ -133,13 +133,13 @@ function game(playerSelectionNode) {
         resultVisual.textContent = gameRound(playerSelection, computerSelection) 
         + `Player Score: ${playerScore} , Computer Score: ${computerScore}`;
         
-        resultVisual.style.fontSize = '1.2rem';
+        resultVisual.style.fontSize = '1.5rem';
         resultVisual.style.fontWeight = '900';
         resultInsert.append(resultVisual);
         
         if(gameRoundCounter === 5){
             finalResultVisual = document.createElement('h2');
-            finalResultVisual.style.fontSize = '1.2rem';
+            finalResultVisual.style.fontSize = '2rem';
             if (playerScore > computerScore){
                 finalResultVisual.textContent = 'YOU WIN!!!';
             }
