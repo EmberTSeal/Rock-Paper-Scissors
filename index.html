@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> Rock Paper Scissors</title>
+    <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
     <script src="script.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,40 +15,43 @@
 
 <body>
     <div class="containerTotal">
-    <main>
-        <h1>ROCK &#8212; PAPER &#8212;SCISSORS</h1>
-        <h2>Choose Your Weapon:</h2>
-        <div class="weapons">
-            <div class="rock card">
-                <img src="/images/rock.png">
+        <main>
+            <h1>ROCK &#8212; PAPER &#8212;SCISSORS</h1>
+            <h2>Choose Your Weapon:</h2>
+            <div class="weapons">
+                <div class="rock card">
+                    <img src="/images/rock.png">
+                </div>
+                <div class="paper card">
+                    <img src="/images/paper.png">
+                </div>
+                <div class="scissors card">
+                    <img src="images/scissors.png">
+                </div>
             </div>
-            <div class="paper card">
-                <img src="/images/paper.png">
-            </div>
-            <div class="scissors card">
-                <img src="images/scissors.png">
-            </div>
-        </div>
 
-        <span class="round"></span>
-        <span id="gameover"></span>
-        <span class="result"></span>
-        <div class="container">
-            <div id="you"></div>
-            <div id="vs">VS</div>
-            <div id="pc"></div>
-        </div>
-        <button id="restart">Play Again?</button>
+            <dialog class="modal" id="modal" close>
+                <span id="gameover"></span>
+                <button id="restart">Play Again?</button>
+            </dialog>
 
-    </main>
-    <footer>
-        <p><a href='https://pngtree.com/so/Block'>Block png from pngtree.com/</a> || 
-        <a
-            href="https://www.freepik.com/free-vector/zigzag-lines-pattern-black-background_24858829.htm#query=black%20pattern&position=25&from_view=keyword&track=ais">Image
-            by starline on Freepik</a> || Made with &hearts; by Trisha Seal || 2023 || The Odin Project
+            <span class="round"></span>
+            <span class="result"></span>
+            <div class="container">
+                <div id="you"></div>
+                <div id="vs">VS</div>
+                <div id="pc"></div>
+            </div>
+
+        </main>
+        <footer>
+            <p><a href='https://pngtree.com/so/Block'>Block png from pngtree.com/</a> ||
+                <a
+                    href="https://www.freepik.com/free-vector/zigzag-lines-pattern-black-background_24858829.htm#query=black%20pattern&position=25&from_view=keyword&track=ais">Image
+                    by starline on Freepik</a> || Made with &hearts; by Trisha Seal || 2023 || The Odin Project
             </p>
-    </footer>
-</div>
+        </footer>
+    </div>
 </body>
 
 </html>

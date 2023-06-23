@@ -5,13 +5,12 @@ let gameRoundCounter = 0;
 const rock = document.querySelector('.rock');
 const paper = document.querySelector('.paper');
 const scissors = document.querySelector('.scissors');
-const restart = document.querySelector('#restart');
 
 //maps the choices w corresponding cards
 const choicesMap = {
-    rock : rock,
+    rock: rock,
     paper: paper,
-    scissors : scissors
+    scissors: scissors
 }
 
 let playerSelection = '';
@@ -24,7 +23,9 @@ const resultInsert = document.querySelector('.result');
 const computerChoiceInsert = document.querySelector('#pc');
 const playerChoiceInsert = document.querySelector('#you');
 const gameOver = document.querySelector('#gameover');
-        
+const modal = document.querySelector('.modal');
+const restart = document.querySelector('#restart');
+
 rock.addEventListener('click', () => {
     playerSelection = 'rock';
     game(rock);
@@ -39,7 +40,7 @@ scissors.addEventListener('click', () => {
 
 });
 
-restart.addEventListener( 'click', () => {
+restart.addEventListener('click', () => {
     gameRoundCounter = 0;
     playerScore = 0;
     computerScore = 0;
@@ -47,7 +48,7 @@ restart.addEventListener( 'click', () => {
     document.querySelector('.container').style.display = 'none';
     document.querySelector('.round').style.display = 'none';
     finalResultVisual.style.display = 'none';
-    restart.style.display = 'none';
+    modal.close();
 });
 
 function getComputerChoice() {
@@ -90,66 +91,67 @@ function roundResult(inputOne, inputTwo) {
         return ('Scissors beats Paper.');
 }
 
-function removePastRound(playerChoiceInsert, computerChoiceInsert, resultInsert){
-    playerChoiceInsert.removeChild(playerChoiceVisual); 
-    computerChoiceInsert.removeChild(computerChoiceVisual);   
-    resultInsert.removeChild(resultVisual) 
+function removePastRound(playerChoiceInsert, computerChoiceInsert, resultInsert) {
+    playerChoiceInsert.removeChild(playerChoiceVisual);
+    computerChoiceInsert.removeChild(computerChoiceVisual);
+    resultInsert.removeChild(resultVisual)
 };
 
-function updateRoundDisplay(){
+function updateRoundDisplay() {
     const RoundDisplay = document.querySelector('.round');
     RoundDisplay.innerHTML = `<h2>Round - ${gameRoundCounter}</h2>`;
 };
 
-function showContainer(){
+function showContainer() {
     document.querySelector('.container').style.display = 'flex';
     document.querySelector('.round').style.display = 'flex';
 }
 
 
-function updateDisplay(){
+function updateDisplay() {
     gameRoundCounter++;
-    if(gameRoundCounter == 1)
+    if (gameRoundCounter == 1)
         showContainer();
     updateRoundDisplay();
-    if(gameRoundCounter>1)
+    if (gameRoundCounter > 1)
         removePastRound(playerChoiceInsert, computerChoiceInsert, resultInsert);
 }
 
 function game(playerSelectionNode) {
 
-        updateDisplay();
+    updateDisplay();
 
-        let computerSelection = getComputerChoice();
+    let computerSelection = getComputerChoice();
 
-        playerChoiceVisual = playerSelectionNode.cloneNode(true);
-        computerChoiceVisual = choicesMap[computerSelection].cloneNode(true);
+    playerChoiceVisual = playerSelectionNode.cloneNode(true);
+    computerChoiceVisual = choicesMap[computerSelection].cloneNode(true);
 
-        playerChoiceInsert.append(playerChoiceVisual);
-        computerChoiceInsert.append(computerChoiceVisual);
-     
-        resultVisual = document.createElement('p');
+    playerChoiceInsert.append(playerChoiceVisual);
+    computerChoiceInsert.append(computerChoiceVisual);
 
-        resultVisual.textContent = gameRound(playerSelection, computerSelection) 
+    resultVisual = document.createElement('p');
+
+    resultVisual.textContent = gameRound(playerSelection, computerSelection)
         + `Player Score: ${playerScore} , Computer Score: ${computerScore}`;
-        
-        resultVisual.style.fontSize = '1.5rem';
-        resultVisual.style.fontWeight = '900';
-        resultInsert.append(resultVisual);
-        
-        if(gameRoundCounter === 5){
-            finalResultVisual = document.createElement('h2');
-            finalResultVisual.style.fontSize = '2rem';
-            if (playerScore > computerScore){
-                finalResultVisual.textContent = 'YOU WIN!!!';
-            }
-            else if (playerScore < computerScore){
-                finalResultVisual.textContent = 'YOU LOSE!!!';
-            }
-            else{
-                finalResultVisual.textContent = 'TIE!!!';
-            }
-            gameOver.append(finalResultVisual);  
-            restart.style.display = 'block';
-        }        
+
+    resultVisual.style.fontSize = '1.5rem';
+    resultVisual.style.fontWeight = '900';
+    resultInsert.append(resultVisual);
+
+    if (gameRoundCounter === 5) {
+        finalResultVisual = document.createElement('h2');
+        finalResultVisual.style.fontSize = '2rem';
+        if (playerScore > computerScore) {
+            finalResultVisual.textContent = 'YOU WIN!!!';
+        }
+        else if (playerScore < computerScore) {
+            finalResultVisual.textContent = 'YOU LOSE!!!';
+        }
+        else {
+            finalResultVisual.textContent = 'TIE!!!';
+        }
+        gameOver.append(finalResultVisual);
+        modal.showModal();
+    }
 }
+
