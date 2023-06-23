@@ -1,35 +1,40 @@
-//GAME RULES
-//Scissors > Paper > Rock
-//Paper > Rock > Scissors
-//Rock > Scissors > Paper
-
 let playerScore = 0;
 let computerScore = 0;
 let gameRoundCounter = 0;
 
-//menu
-const playerRock = document.querySelector('.rock');
-const playerPaper = document.querySelector('.paper');
-const playerScissors = document.querySelector('.scissors');
-      
-let playerSelection;
-let playerChoiceUI;
-let computerChoiceUI;
+const rock = document.querySelector('.rock');
+const paper = document.querySelector('.paper');
+const scissors = document.querySelector('.scissors');
+
+//maps the choices w corresponding cards
+const choicesMap = {
+    rock : rock,
+    paper: paper,
+    scissors : scissors
+}
+
+let playerSelection = '';
+let playerChoiceVisual;
+let computerChoiceVisual;
+let resultVisual;
+let finalResultVisual;
+
+const resultInsert = document.querySelector('.result');
 const computerChoiceInsert = document.querySelector('#pc');
 const playerChoiceInsert = document.querySelector('#you');
+const gameOver = document.querySelector('#gameover');
         
-
-playerRock.addEventListener('click', () => {
+rock.addEventListener('click', () => {
     playerSelection = 'rock';
-    game();
+    game(rock);
 });
-playerPaper.addEventListener('click', () => {
+paper.addEventListener('click', () => {
     playerSelection = 'paper';
-    game();
+    game(paper);
 });
-playerScissors.addEventListener('click', () => {
+scissors.addEventListener('click', () => {
     playerSelection = 'scissors';
-    game();
+    game(scissors);
 });
 
 function getComputerChoice() {
@@ -43,17 +48,16 @@ function getComputerChoice() {
 }
 
 function gameRound(playerSelection, computerSelection) {
-    let player = playerSelection.toLowerCase();
-    if (player === computerSelection) {
+    if (playerSelection === computerSelection) {
         playerScore += 1;
         computerScore += 1;
         return ('Tie!');
     }
     else {
-        let result = roundResult(player, computerSelection);
-        if ((player === 'rock' && computerSelection === 'paper') ||
-            (player === 'scissors' && computerSelection === 'rock') ||
-            (player === 'paper' && computerSelection === 'scissors')) {
+        let result = roundResult(playerSelection, computerSelection);
+        if ((playerSelection === 'rock' && computerSelection === 'paper') ||
+            (playerSelection === 'scissors' && computerSelection === 'rock') ||
+            (playerSelection === 'paper' && computerSelection === 'scissors')) {
             computerScore += 1;
             return ('You Lose! ' + result);
         }
@@ -73,36 +77,67 @@ function roundResult(inputOne, inputTwo) {
         return ('Scissors beats Paper.');
 }
 
-function removePastRound(playerChoiceInsert, computerChoiceInsert){
-    playerChoiceInsert.removeChild(playerChoiceUI); 
-   computerChoiceInsert.removeChild(computerChoiceUI);    
+function removePastRound(playerChoiceInsert, computerChoiceInsert, resultInsert){
+    playerChoiceInsert.removeChild(playerChoiceVisual); 
+    computerChoiceInsert.removeChild(computerChoiceVisual);   
+    resultInsert.removeChild(resultVisual) 
 };
 
-function game() {
-        gameRoundCounter++;
-        if(gameRoundCounter>1)
-            removePastRound(playerChoiceInsert, computerChoiceInsert);
-       
+function updateRoundDisplay(){
+    const RoundDisplay = document.querySelector('.round');
+    RoundDisplay.innerHTML = `<h2>Round - ${gameRoundCounter}</h2>`;
+};
+
+function showContainer(){
+    document.querySelector('.container').style.display = 'flex';
+    document.querySelector('.round').style.display = 'flex';
+}
+
+
+function updateDisplay(){
+    gameRoundCounter++;
+    if(gameRoundCounter == 1)
+        showContainer();
+    updateRoundDisplay();
+    if(gameRoundCounter>1)
+        removePastRound(playerChoiceInsert, computerChoiceInsert, resultInsert);
+}
+
+function game(playerSelectionNode) {
+
+        updateDisplay();
+
         let computerSelection = getComputerChoice();
 
-        playerChoiceUI = document.createElement('p');
-        playerChoiceUI.textContent = `${playerSelection}`;
+        playerChoiceVisual = playerSelectionNode.cloneNode(true);
+        computerChoiceVisual = choicesMap[computerSelection].cloneNode(true);
 
-        computerChoiceUI = document.createElement('p');
-        computerChoiceUI.textContent = `${computerSelection}`;
+        playerChoiceInsert.append(playerChoiceVisual);
+        computerChoiceInsert.append(computerChoiceVisual);
+     
+        resultVisual = document.createElement('p');
 
-        playerChoiceInsert.append(playerChoiceUI);
-        computerChoiceInsert.append(computerChoiceUI);
+        resultVisual.textContent = gameRound(playerSelection, computerSelection) 
+        + `\r\n Player Score: ${playerScore} , Computer Score: ${computerScore}`;
         
-        console.log(gameRound(playerSelection, computerSelection));
-        console.log(`Player Score: ${playerScore} , Computer Score: ${computerScore}`);
-
+        resultVisual.style.fontSize = '30px';
+        resultInsert.append(resultVisual);
+        
         if(gameRoundCounter === 5){
-            if (playerScore > computerScore)
-                console.log('YOU WIN!')
-            else if (playerScore < computerScore)
-                console.log('YOU LOSE!')
-            else
-                console.log('TIE!');
+            finalResultVisual = document.createElement('h2');
+            finalResultVisual.style.fontSize = '40px';
+            if (playerScore > computerScore){
+                finalResultVisual.textContent = 'YOU WIN!!!';
+            }
+            else if (playerScore < computerScore){
+                finalResultVisual.textContent = 'YOU LOSE!!!';
+            }
+            else{
+                finalResultVisual.textContent = 'TIE!!!';
+            }
+            gameOver.append(finalResultVisual);
+            gameRoundCounter = 0;
+            playerScore = 0;
+            computerScore = 0;
         }        
 }

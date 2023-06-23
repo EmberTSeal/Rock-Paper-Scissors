@@ -8,14 +8,16 @@ F25C54;
 
 body{
     font-family: 'Amatic SC', cursive;
-    background-color: #191a1b;
+    background-color: #191a1b; 
+    margin:0;
+    background-image:url('images/back.png');
     display: flex;
     justify-content: center;
 }
 
 main{
-    width: 50vw;
-    min-height: 110vh;
+    min-width: 70vw;
+    min-height: 100vh;
     padding: 20px;
     background-color:  #F7B267;
     display: flex;
@@ -33,56 +35,57 @@ h1{
     background-color: #F25C54;
     padding: 20px;
     margin: 10px;
+    font-size: 1.3rem;
     border-radius: 6px;
 }
 
 h2{
-    font-size: max(2vmax, 30px);
+    font-size: 1.2rem;
     border-bottom: 2px solid #191a1b;
 }
 
  .weapons{
     width: 50vw;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
-} 
+}
 
 .card{
-    padding-top: 20px;
     border: 2px solid black;
     background-color: #F25C54;
-    width: 120px;
-    height: 200px;
+    width: 15vw;
+    height: 15vw;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 1rem;
     text-align: center;
     letter-spacing: 3px;
     font-weight: 600;
-    display: flex;
+    display:flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .card img{
     background-color: #F79D65;
     border: 2px solid #df4840;
     border-radius: 10px;
-    width: 100px;
-    height: 100px;
+    width: 13vw;
+    height: 13vw;
 }
 
 .card.scissors img{
-    width: 80px;
+    width: 12.8vw;
 }
 
+
 .round{
+    margin: 30px;
     margin-top: 30px;
     font-size: 3rem;
-    padding: 20px;
+    padding: 0 20px 0 20px;
     border-radius: 10px;
     background-color: #F4845F;
     border: 2px solid black;
@@ -108,3 +111,8 @@ h2{
     font-size: 30px;
     font-weight: 800;
 }
+
+.round, .container{
+    display : none;
+}
+
